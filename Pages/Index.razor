@@ -1,0 +1,42 @@
+﻿@page "/"
+@layout NoMenuLayout
+@using BlazorAppLogin.Dtos;
+@inject IUserService userService
+@inject NavigationManager navigationManager
+<div class="text-center">
+<h1>Login</h1>
+</div>
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<form class="form-text">
+	<div class="text-center">
+		<label for="email">Email:</label><br>
+		<input type="text" id="email" name="email" @bind-value="logn.Email" placeholder="Email..." required><br>
+		<label for="pwd">Password:</label><br>
+		<input type="password" id="pwd" name="pwd" @bind-value="logn.Password" placeholder="Password..." required>
+		<div class="text-center">
+			<div class="top-row px-4">
+				<a href="/register">Register</a>
+			</div>
+		</div><br><br />
+		<div class="text-center">
+			<button class="btn btn-primary" @onclick="HandleSubmit">Submit</button>
+		</div>
+		<br /><br />
+	</div>
+</form>
+@code {
+	public LoginDto logn { get; set; } = new LoginDto();
+	async Task HandleSubmit()
+	{
+		await userService.GetSingleUser(logn);
+	}
+}

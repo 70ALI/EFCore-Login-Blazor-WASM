@@ -1,0 +1,43 @@
+﻿@page "/User"
+@using BlazorAppLogin.Dtos;
+@inject IUserService userService
+@inject NavigationManager navigationManager
+
+<h1>Users Page</h1>
+<div dir="rtl">
+	<a href="/"> LOG OUT </a>
+</div>
+
+<div>
+	<table class="table table-secondary">
+		<tbody>
+			<tr>
+				<th>ID</th>
+				<th>FullName</th>
+				<th>Email</th>
+				<th>Password</th>
+				<th>PhoneNummber</th>
+				<th>Address</th>
+			</tr>
+			@foreach (var usr in userService.Users)
+			{
+				<tr>
+					<td>@usr.Id</td>
+					<td>@usr.FullName</td>
+					<td>@usr.Email</td>
+					<td>@usr.Password</td>
+					<td>@usr.PhoneNumber</td>
+					<td>@usr.Address</td>
+				</tr>
+			}
+		</tbody>
+	</table>
+</div>
+@code {
+	public UserDto users { get; set; } = new UserDto();
+	public LoginDto logn { get; set; } = new LoginDto();
+	protected override async Task OnInitializedAsync()
+	{
+		await userService.GetUsers();
+	}
+}

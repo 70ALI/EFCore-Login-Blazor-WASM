@@ -1,0 +1,51 @@
+﻿@page "/register"
+@layout NoMenuLayout
+@using BlazorAppLogin.Dtos;
+@inject IUserService userService
+@inject NavigationManager navigationManager
+
+<h1>Register</h1>
+<EditForm Model="user" OnSubmit="HandleSubmit">
+	<div>
+		<label for="fullname">Full Name</label>
+		<InputText id="fullname" @bind-Value="user.FullName" class="form-control" required></InputText>
+	</div>
+	<div>
+		<label for="email">Email</label>
+		<InputText id="email" @bind-Value="user.Email" class="form-control" required></InputText>
+	</div>
+	<div>
+		<label for="password">Password</label>
+		<InputNumber id="password" @bind-Value="user.Password" class="form-control" required></InputNumber>
+	</div>
+	<div>
+		<label for="phoneNumber">PhoneNumber</label>
+		<InputNumber id="phoneNumber" @bind-Value="user.PhoneNumber" class="form-control" required></InputNumber>
+	</div>
+	<div>
+		<label for="address">Address</label>
+		<InputText id="address" @bind-Value="user.Address" class="form-control"></InputText>
+	</div>
+	<br />
+	<div class="text-center">
+		<button type="submit" class="btn btn-success">Create</button>
+	</div>
+</EditForm>
+<br />
+<br />
+<br />
+<div class="text-center">
+	<button type="submit" class="btn btn-secondary" @onclick="LoginPg">Login Page</button>
+</div>
+@code {
+	public UserDto user { get; set; } = new UserDto();
+	async Task HandleSubmit()
+	{
+		await userService.CreateUser(user);
+		navigationManager.NavigateTo("/");
+	}
+	async Task LoginPg()
+	{
+		navigationManager.NavigateTo("/");
+	}
+}
